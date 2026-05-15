@@ -8,16 +8,25 @@
     @csrf
 
     <label>Title</label><br>
-    <input type="text" name="title">
+    <input type="text" name="title" style="width:100%;">
 
     <br><br>
 
-    <label>Content</label><br>
-    <textarea name="content"></textarea>
+    <label>Description</label><br>
+    <textarea name="content" style="width:100%; height:100px;"></textarea>
 
     <br><br>
 
-    <button type="submit">Submit</button>
+    <label>Post Creator</label><br>
+    <select name="user_id" style="width:100%;">
+        @foreach($users as $user)
+            <option value="{{ $user->id }}">{{ $user->name }}</option>
+        @endforeach
+    </select>
+
+    <br><br>
+
+    <x-button type="success" type="submit">Create</x-button>
 </form>
 
 @endsection

@@ -13,6 +13,8 @@ use App\Http\Controllers\PostController;
 |
 */
 Route::resource('posts', PostController::class);
+Route::put('/posts/{post}/restore', [PostController::class, 'restore'])->name('posts.restore');
+
 Route::get('/', function () {
     return view('welcome');
 });
