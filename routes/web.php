@@ -8,7 +8,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -31,7 +30,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('posts', PostController::class);
 
+    Route::put('/posts/{id}/restore', [PostController::class, 'restore'])->name('posts.restore');
+    Route::delete('/posts/{id}/force-delete', [PostController::class, 'forceDelete'])->name('posts.forceDelete');
+
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+
+    Route::post('/likes/toggle', [PostController::class, 'toggleLike'])->name('likes.toggle');
 });
 
 require __DIR__.'/auth.php';

@@ -7,9 +7,9 @@
             <h4>Add New User</h4>
         </div>
         <div class="card-body">
-            {{-- الفورم بتبعت لميثود store في الـ UserController --}}
+            
             <form action="{{ route('users.store') }}" method="POST">
-                @csrf {{-- أهم سطر حماية في لارفيل --}}
+                @csrf
 
                 <div class="mb-3">
                     <label>Name</label>
@@ -31,7 +31,7 @@
 
                 <div class="mb-3">
                     <label>Confirm Password</label>
-                    {{-- لازم الاسم يكون password_confirmation عشان يشتغل مع الـ confirmed rule --}}
+
                     <input type="password" name="password_confirmation" class="form-control">
                 </div>
 

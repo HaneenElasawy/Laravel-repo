@@ -17,14 +17,21 @@ class CommentController extends Controller
             'commentable_type' => 'required',
         ]);
 
-        $modelClass = $request->commentable_type;
-        $model = $modelClass::findOrFail($request->commentable_id);
+        $userId = auth()->id() ?? \App\Models\User::first()?->id;
 
-        $model->comments()->create([
-            'body' => $request->body,
-            'user_id' => auth()->id() ?? 1,
-        ]);
-
-        return back()->with('success', 'Comment added successfully!');
+        if (!$userId) {
+        return back()->with('error', 'You must create at least one user to add comments.');
     }
+    $modelClass = $request->commentable_type;
+    $model = $modelClass::findOrFail($request->commentable_id);
+
+    Comment::create([
+        'body' => $request->body,
+        'user_id' => $userId,
+        'commentable_id' => $request->commentable_id,
+        'commentable_type' => $request->commentable_type,
+    ]);
+
+    return back()->with('success', 'Comment added successfully!');
+}
 }

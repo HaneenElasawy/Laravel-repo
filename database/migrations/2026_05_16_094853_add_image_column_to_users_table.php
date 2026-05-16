@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->foreignId('user_id')
-                ->nullable()
-                ->after('id')
-                ->constrained()
-                ->onDelete('cascade');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('image')->nullable()->after('email');
             //
         });
     }
@@ -26,9 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('image');
             //
         });
     }

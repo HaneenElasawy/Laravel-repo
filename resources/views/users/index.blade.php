@@ -21,6 +21,7 @@
             <thead>
                 <tr style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; border-bottom: 1px solid #000;">
                     <th class="border-0 px-3 py-3">ID</th>
+                    <th class="border-0 py-3">Image</th>
                     <th class="border-0 py-3">Full Name</th>
                     <th class="border-0 py-3">Email Address</th>
                     <th class="border-0 py-3 text-end px-3">Management</th>
@@ -32,13 +33,26 @@
                     <td class="text-muted px-3" style="font-size: 13px; font-family: 'Courier New', Courier, monospace;">
                         #{{ str_pad($user->id, 4, '0', STR_PAD_LEFT) }}
                     </td>
+
+                    <td class="py-2">
+                        @if($user->image)
+                            <img src="{{ $user->image }}"
+                                alt="{{ $user->name }}"
+                                style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 1px solid #ddd;">
+                        @else
+                            <div style="width: 45px; height: 45px; border-radius: 50%; background-color: #eaeaea; color: #aaa; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; text-transform: uppercase;">
+                                No Img
+                            </div>
+                        @endif
+                    </td>
+
                     <td style="font-weight: 600; color: #000;">{{ $user->name }}</td>
                     <td style="color: #666; font-size: 14px;">{{ $user->email }}</td>
                     <td class="text-end px-3">
                         <div class="d-flex justify-content-end gap-3">
                             <a href="{{ route('users.edit', $user->slug) }}"
-                               class="text-dark"
-                               style="font-size: 11px; font-weight: 800; text-decoration: none; text-transform: uppercase; letter-spacing: 1px;">
+                            class="text-dark"
+                            style="font-size: 11px; font-weight: 800; text-decoration: none; text-transform: uppercase; letter-spacing: 1px;">
                                 Edit
                             </a>
 

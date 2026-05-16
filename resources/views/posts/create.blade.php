@@ -2,31 +2,47 @@
 
 @section('content')
 
-<h1>Create Post</h1>
+<div class="container py-4">
+    <h1>Create Post</h1>
 
-<form action="/posts" method="POST">
-    @csrf
+    <form action="/posts" method="POST" enctype="multipart/form-data">
+        @csrf
 
-    <label>Title</label><br>
-    <input type="text" name="title" style="width:100%;">
+        <label class="form-label">Title</label><br>
+        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
+        @error('title')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
 
-    <br><br>
+        <br>
 
-    <label>Description</label><br>
-    <textarea name="content" style="width:100%; height:100px;"></textarea>
+        <label class="form-label">Description</label><br>
+        <textarea name="content" class="form-control @error('content') is-invalid @enderror" style="height:100px;">{{ old('content') }}</textarea>
+        @error('content')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
 
-    <br><br>
+        <br>
 
-    <label>Post Creator</label><br>
-    <select name="user_id" style="width:100%;">
-        @foreach($users as $user)
-            <option value="{{ $user->id }}">{{ $user->name }}</option>
-        @endforeach
-    </select>
+        <label class="form-label">Post Image</label><br>
+        <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
+        @error('image')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
 
-    <br><br>
+        <br>
 
-    <x-button type="success" type="submit">Create</x-button>
-</form>
+        <label class="form-label">Post Creator</label><br>
+        <select name="user_id" class="form-select">
+            @foreach($users as $user)
+                <option value="{{ $user->id }}">{{ $user->name }}</option>
+            @endforeach
+        </select>
+
+        <br><br>
+
+        <x-button type="success" type="submit">Create Post</x-button>
+    </form>
+</div>
 
 @endsection
