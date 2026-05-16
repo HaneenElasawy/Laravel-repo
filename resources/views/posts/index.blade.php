@@ -37,7 +37,8 @@ use Illuminate\Support\Str;
             <td>{{ $post->created_at->format('D d M Y') }}</td>
 
             <td style="display:flex; gap:5px;">
-    <a href="/posts/{{ $post->id }}">
+    {{-- تعديل: استخدام السلاج هنا بدل الـ ID --}}
+    <a href="/posts/{{ $post->slug }}">
         <x-button type="primary">View</x-button>
     </a>
 
@@ -48,11 +49,12 @@ use Illuminate\Support\Str;
             <x-button type="success" type="submit">Restore</x-button>
         </form>
     @else
-        <a href="/posts/{{ $post->id }}/edit">
+        {{-- تعديل: استخدام السلاج في التعديل والحذف --}}
+        <a href="/posts/{{ $post->slug }}/edit">
             <x-button type="secondary">Edit</x-button>
         </a>
 
-        <form action="/posts/{{ $post->id }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this post?');">
+        <form action="/posts/{{ $post->slug }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this post?');">
             @csrf
             @method('DELETE')
             <x-button type="danger" type="submit">Delete</x-button>
@@ -65,6 +67,7 @@ use Illuminate\Support\Str;
 
 <br>
 
+{{-- الجزء بتاع الـ Pagination سليم وملمسناهوش --}}
 @if ($posts->hasPages())
     <div style="margin-top: 15px;">
         @if ($posts->onFirstPage())

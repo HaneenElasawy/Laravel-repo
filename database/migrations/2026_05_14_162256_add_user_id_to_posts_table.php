@@ -16,7 +16,7 @@ return new class extends Migration
                 ->nullable()
                 ->after('id')
                 ->constrained()
-                ->onDelete('Casecade');
+                ->onDelete('set null');
             //
         });
     }
